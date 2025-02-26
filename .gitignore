@@ -1,0 +1,10 @@
+# Environment
+*WS
+
+# data
+data
+data*
+
+# Compiled files
+.pyc
+__pycache__
