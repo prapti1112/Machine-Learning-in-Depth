@@ -10,12 +10,10 @@ def estimate_pi(num_samples: int, radius: float):
     for _ in range(num_samples):
         x, y = random.uniform(-1*radius, radius), random.uniform(-1*radius, radius)
         samples.append(int(x**2 + y**2 <= radius**2) * 4 * radius**2)
-        # logger.debug(f"Point: ({x}, {y}). Inside circle: {x**2 + y**2 <= radius**2}")
     
     integration = sum(samples)/num_samples
     pi_approx = integration / (radius**2)
 
-    # logger.debug(f"Samples: {samples}")
     return pi_approx
 
 
