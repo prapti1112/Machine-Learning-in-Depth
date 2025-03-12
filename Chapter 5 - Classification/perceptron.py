@@ -84,10 +84,25 @@ def train(dataset_path: Path|str, epochs: int, *args, **kwargs):
 
         model.backward(epoch, np.sum(train_dataset[:, :-1]*y_true[:, np.newaxis], axis=0), np.sum(y_true))
         logger.info(f"Epochs {epoch}: Training loss: {train_loss}")
+    
+    return model
 
+def infer(dataset_path: Path|str, model: Perceptron):
+    # Taking a subset of Iris dataset for testing
+    test_dataset = load_binary_dataset(dataset_path)
+    num_rows_to_choose = int(0.3 * len(test_dataset))
+    indices = np.random.choice(test_dataset, size=num_rows_to_choose, replace=False)
+    test_dataset = test_dataset[indices]
+    
+    loss = missclassification_count
 
+    y_pred = model.forward(test_dataset[:, :-1])
+    test_loss = loss(test_dataset[:, -1], np.squeeze(y_pred))
 
-
+    logger.info( f"Validation loss: {test_loss}" )
+    
 
 if __name__ == "__main__":
-    train("iris", epochs=10)
+    classifier = train("iris", epochs=10)
+
+    infer("iris", classifier)
