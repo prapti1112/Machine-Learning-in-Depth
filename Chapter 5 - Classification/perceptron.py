@@ -4,7 +4,7 @@ from logzero import logger
 
 import numpy as np
 from activations import sigmoid
-from dataloaders import load_iris_dataset
+from dataloaders import load_binary_dataset
 from losses import missclassification_count
 
 class Perceptron:
@@ -52,7 +52,7 @@ def load_binary_dataset(dataset_path: Path|str):
         dataset
     """
     if dataset_path == "iris":
-        X, y = load_iris_dataset()
+        X, y = load_binary_dataset()
         logger.debug(f"X: {X.shape}, y: {y.shape}")        
         
         y = np.where(y == 0, -1, y)
